@@ -13,74 +13,107 @@
 
   <style>
     :root{
-      --bg: #0b1020;
-      --stroke: rgba(255,255,255,.12);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.58);
-      --accent: #7c5cff;
-      --accent2: #22c55e;
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
-      --radius: 18px;
-      --radius2: 26px;
-      --max: 1100px;
+      --bg: #f6f8fc;
+      --panel: #ffffff;
+      --panel2: #fbfcff;
+      --stroke: rgba(15, 23, 42, .10);
+      --stroke2: rgba(15, 23, 42, .08);
+      --text: rgba(15, 23, 42, .92);
+      --muted: rgba(15, 23, 42, .68);
+      --muted2: rgba(15, 23, 42, .52);
+      --accent: #4f46e5;   /* Indigo moderno */
+      --accent2: #16a34a;  /* Verde */
+      --shadow: 0 18px 50px rgba(15, 23, 42, .10);
+      --shadow2: 0 12px 34px rgba(15, 23, 42, .08);
+      --radius: 16px;
+      --radius2: 24px;
+      --max: 1120px;
     }
+
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body{
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--text);
       background:
-        radial-gradient(900px 420px at 15% 10%, rgba(124,92,255,.30), transparent 60%),
-        radial-gradient(700px 380px at 85% 15%, rgba(34,197,94,.18), transparent 55%),
-        radial-gradient(1000px 520px at 55% 105%, rgba(124,92,255,.18), transparent 55%),
+        radial-gradient(900px 520px at 15% 0%, rgba(79,70,229,.10), transparent 55%),
+        radial-gradient(700px 420px at 90% 10%, rgba(22,163,74,.08), transparent 55%),
         var(--bg);
-      line-height: 1.45;
+      line-height: 1.55;
     }
-    a{ color: inherit; text-decoration: none; }
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 22px 18px 70px; }
 
+    a{ color: inherit; text-decoration: none; }
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 22px 18px 74px; }
+
+    /* Top bar */
     .top{
       display:flex; align-items:center; justify-content:space-between;
-      gap: 14px; padding: 10px 6px;
+      gap: 14px; padding: 6px 2px;
       flex-wrap: wrap;
     }
-    .brand{ display:flex; align-items:center; gap: 10px; font-weight: 800; letter-spacing: .2px; }
-    .logo{
-      width: 38px; height: 38px; border-radius: 12px;
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(34,197,94,.75));
-      box-shadow: 0 12px 35px rgba(124,92,255,.25);
-      border: 1px solid rgba(255,255,255,.14);
+
+    .brand{
+      display:flex; align-items:center; gap: 12px;
+      font-weight: 800;
+      letter-spacing: .1px;
     }
-    .brand small{ display:block; font-weight: 600; color: var(--muted2); margin-top: 2px; }
+
+    .logoWrap{
+      height: 40px;
+      display:flex;
+      align-items:center;
+      padding: 6px 10px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.80);
+      border: 1px solid var(--stroke2);
+      box-shadow: 0 10px 30px rgba(15,23,42,.06);
+    }
+
+    /* Logo: sube "logo-covenorte.png" al repo */
+    .logoImg{
+      height: 26px;
+      width: auto;
+      display:block;
+    }
+
+    .brandText small{
+      display:block;
+      font-weight: 650;
+      color: var(--muted2);
+      margin-top: 2px;
+    }
 
     .pill{
       display:inline-flex; align-items:center; gap: 8px;
-      padding: 9px 12px; border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
+      padding: 10px 12px; border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid var(--stroke);
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 750;
+      box-shadow: 0 10px 30px rgba(15,23,42,.06);
       backdrop-filter: blur(10px);
     }
+
     .dot{
-      width: 8px; height: 8px; border-radius: 999px;
+      width: 9px; height: 9px; border-radius: 999px;
       background: var(--accent2);
-      box-shadow: 0 0 0 6px rgba(34,197,94,.10);
+      box-shadow: 0 0 0 6px rgba(22,163,74,.10);
     }
 
+    /* Layout */
     .hero{
-      margin-top: 18px;
-      display:grid; gap: 18px;
-      grid-template-columns: 1.15fr .85fr;
+      margin-top: 14px;
+      display:grid; gap: 16px;
+      grid-template-columns: 1.18fr .82fr;
       align-items: stretch;
     }
-    @media (max-width: 920px){ .hero{ grid-template-columns: 1fr; } }
+    @media (max-width: 940px){ .hero{ grid-template-columns: 1fr; } }
 
     .heroCard{
       border-radius: var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
-      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,.96));
+      border: 1px solid var(--stroke);
       box-shadow: var(--shadow);
       overflow:hidden;
       position: relative;
@@ -88,65 +121,93 @@
     .heroCard::before{
       content:"";
       position:absolute; inset:-2px;
-      background: radial-gradient(700px 220px at 10% 0%, rgba(124,92,255,.25), transparent 60%),
-                  radial-gradient(650px 260px at 95% 15%, rgba(34,197,94,.12), transparent 55%);
+      background:
+        radial-gradient(700px 260px at 10% 0%, rgba(79,70,229,.10), transparent 60%),
+        radial-gradient(650px 260px at 95% 15%, rgba(22,163,74,.08), transparent 60%);
       pointer-events:none;
     }
-    .heroInner{ position:relative; padding: 28px 26px 24px; }
+    .heroInner{ position:relative; padding: 28px 26px 22px; }
+
     h1{
       margin: 0 0 10px;
-      font-size: clamp(28px, 3.2vw, 44px);
+      font-size: clamp(28px, 3vw, 44px);
       line-height: 1.08;
       letter-spacing: -0.6px;
     }
-    .sub{ margin: 0; font-size: 16px; color: var(--muted); max-width: 64ch; }
+
+    .sub{
+      margin: 0;
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 70ch;
+    }
 
     .ctaRow{
       display:flex; flex-wrap:wrap; gap: 12px;
-      margin-top: 18px; align-items:center;
+      margin-top: 18px;
+      align-items:center;
     }
+
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap: 10px;
       padding: 12px 16px;
       border-radius: 14px;
       font-weight: 800;
-      border: 1px solid rgba(255,255,255,.14);
+      border: 1px solid var(--stroke);
       cursor:pointer;
       transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
       user-select:none;
+      white-space: nowrap;
     }
+
     .btnPrimary{
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(124,92,255,.70));
-      box-shadow: 0 18px 35px rgba(124,92,255,.24);
+      background: linear-gradient(135deg, rgba(79,70,229,1), rgba(79,70,229,.88));
+      color: #fff;
+      box-shadow: 0 18px 38px rgba(79,70,229,.18);
+      border-color: rgba(79,70,229,.22);
     }
-    .btnPrimary:hover{ transform: translateY(-1px); box-shadow: 0 24px 44px rgba(124,92,255,.28); }
-    .btnGhost{ background: rgba(255,255,255,.06); }
-    .btnGhost:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
+    .btnPrimary:hover{ transform: translateY(-1px); box-shadow: 0 24px 48px rgba(79,70,229,.22); }
+
+    .btnGhost{
+      background: rgba(255,255,255,.92);
+      color: var(--text);
+    }
+    .btnGhost:hover{ transform: translateY(-1px); background: rgba(255,255,255,1); }
+
+    .btnWhats{
+      background: linear-gradient(135deg, rgba(22,163,74,1), rgba(22,163,74,.88));
+      color: #fff;
+      border-color: rgba(22,163,74,.22);
+      box-shadow: 0 18px 38px rgba(22,163,74,.16);
+    }
+    .btnWhats:hover{ transform: translateY(-1px); box-shadow: 0 24px 48px rgba(22,163,74,.20); }
 
     .metaLine{
       margin-top: 14px;
       color: var(--muted2);
-      font-weight: 600;
+      font-weight: 750;
       font-size: 13px;
       display:flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
+
     .metaLine span{
       display:inline-flex; align-items:center; gap: 8px;
-      padding: 7px 10px;
+      padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.86);
+      border: 1px solid var(--stroke);
     }
 
     .side{
       padding: 22px;
       border-radius: var(--radius2);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.94);
+      border: 1px solid var(--stroke);
       box-shadow: var(--shadow);
     }
+
     .side h3{ margin: 0 0 10px; font-size: 16px; letter-spacing: -.2px; }
     .side p{ margin: 0 0 14px; color: var(--muted); font-size: 14px; }
 
@@ -155,21 +216,26 @@
       display:flex; gap: 10px;
       padding: 10px 12px;
       border-radius: 14px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(15,23,42,.03);
+      border: 1px solid var(--stroke);
     }
+
     .check{
       width: 22px; height: 22px; border-radius: 8px;
-      background: rgba(34,197,94,.18);
-      border: 1px solid rgba(34,197,94,.25);
+      background: rgba(22,163,74,.12);
+      border: 1px solid rgba(22,163,74,.18);
       display:flex; align-items:center; justify-content:center;
-      flex: 0 0 auto; margin-top: 1px;
+      flex: 0 0 auto;
+      margin-top: 1px;
     }
-    .check svg{ width: 14px; height: 14px; }
-    .li strong{ display:block; font-size: 13px; }
-    .li small{ display:block; color: var(--muted2); font-weight: 600; margin-top: 2px; }
 
-    .section{ margin-top: 26px; }
+    .check svg{ width: 14px; height: 14px; stroke: rgba(22,163,74,.95); }
+
+    .li strong{ display:block; font-size: 13px; }
+    .li small{ display:block; color: var(--muted2); font-weight: 650; margin-top: 2px; }
+
+    .section{ margin-top: 18px; }
+
     .twoCol{ display:grid; gap: 14px; grid-template-columns: 1fr 1fr; }
     @media (max-width: 980px){ .twoCol{ grid-template-columns: 1fr; } }
 
@@ -183,26 +249,40 @@
     .card{
       padding: 18px 16px;
       border-radius: var(--radius);
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 14px 40px rgba(0,0,0,.18);
+      background: rgba(255,255,255,.94);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow2);
     }
+
     .card h4{ margin: 0 0 8px; font-size: 15px; letter-spacing: -.2px; }
     .card p{ margin: 0; color: var(--muted); font-size: 14px; }
 
     .bullets{
       margin: 0; padding-left: 18px;
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 650;
       font-size: 14px;
     }
     .bullets li{ margin: 8px 0; }
 
+    .contactBox{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      background: rgba(15,23,42,.03);
+      border: 1px solid var(--stroke);
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .contactBox strong{ display:block; color: var(--text); margin-bottom: 6px; }
+    .contactBox a{ text-decoration: underline; text-decoration-color: rgba(15,23,42,.25); }
+
     .ctaFooter{
-      margin-top: 26px;
+      margin-top: 18px;
       border-radius: var(--radius2);
-      background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(34,197,94,.12));
-      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(135deg, rgba(79,70,229,.10), rgba(22,163,74,.08));
+      border: 1px solid var(--stroke);
       padding: 18px 16px;
       display:flex; flex-wrap:wrap;
       align-items:center; justify-content:space-between;
@@ -213,33 +293,31 @@
     .ctaFooter p{ margin: 2px 0 0; color: var(--muted); font-size: 14px; }
 
     footer{
-      margin-top: 26px;
+      margin-top: 22px;
       padding: 16px 6px 0;
       color: var(--muted2);
       font-size: 13px;
       display:flex; flex-wrap:wrap; gap: 10px;
       align-items:flex-start; justify-content:space-between;
-      border-top: 1px solid rgba(255,255,255,.10);
+      border-top: 1px solid var(--stroke);
     }
-    .footerLinks{ display:flex; gap: 10px; flex-wrap:wrap; font-weight: 700; }
+
+    .footerLinks{ display:flex; gap: 10px; flex-wrap:wrap; font-weight: 750; }
     .footerLinks a{
-      color: rgba(255,255,255,.85);
+      color: rgba(15,23,42,.86);
       padding: 8px 10px;
       border-radius: 12px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.94);
+      border: 1px solid var(--stroke);
     }
-    .footerLinks a:hover{ background: rgba(255,255,255,.06); }
+    .footerLinks a:hover{ background: #fff; }
 
-    .contactBox{
-      margin-top: 12px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
+    .note{
+      margin-top: 10px;
+      color: var(--muted2);
+      font-size: 13px;
+      font-weight: 650;
     }
-    .contactBox strong{ display:block; margin-bottom: 6px; }
-    .contactBox a{ text-decoration: underline; text-decoration-color: rgba(255,255,255,.35); }
   </style>
 </head>
 
@@ -247,8 +325,10 @@
   <div class="wrap">
     <div class="top">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
+        <div class="logoWrap" title="COVENORTE">
+          <img class="logoImg" src="logo-covenorte.png" alt="COVENORTE" />
+        </div>
+        <div class="brandText">
           COVENORTE <span style="opacity:.75">SA</span>
           <small>Soluciones para Hostelería · Desde 1998</small>
         </div>
@@ -266,11 +346,18 @@
           </p>
 
           <div class="ctaRow">
-            <a class="btn btnPrimary" href="https://forms.gle/rhzpnjK9eLbWvmug6" target="_blank" rel="noopener">
+            <a class="btn btnPrimary" href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">
               Quiero mi recomendación (1 minuto) <span aria-hidden="true">→</span>
             </a>
             <a class="btn btnGhost" href="#como-funciona">Cómo funciona</a>
             <a class="btn btnGhost" href="tel:+34620925720">Llamar ahora</a>
+
+            <!-- WhatsApp con mensaje pre-escrito -->
+            <a class="btn btnWhats"
+               href="https://wa.me/34620925720?text=Hola%20Fran%2C%20soy%20%5BNombre%20y%20negocio%5D.%20Quiero%20una%20recomendaci%C3%B3n%20para%20mejorar%20la%20gesti%C3%B3n%20de%20mi%20local.%20He%20visto%20la%20soluci%C3%B3n%20integral%20de%20COVENORTE."
+               target="_blank" rel="noopener">
+              WhatsApp directo
+            </a>
           </div>
 
           <div class="metaLine">
@@ -285,6 +372,7 @@
             Móvil/WhatsApp: <a href="tel:+34620925720">620 92 57 20</a><br>
             Oficina: <a href="tel:+34944643066">94 464 30 66</a><br>
             Email: <a href="mailto:francovenorte@gmail.com">francovenorte@gmail.com</a>
+            <div class="note">Si prefieres, contáctanos por el canal que te venga mejor.</div>
           </div>
         </div>
       </div>
@@ -394,18 +482,20 @@
           </div>
 
           <div class="ctaRow" style="margin-top: 16px;">
-            <a class="btn btnPrimary" href="https://forms.gle/rhzpnjK9eLbWvmug6" target="_blank" rel="noopener">
+            <a class="btn btnPrimary" href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">
               Quiero mi recomendación (1 minuto) <span aria-hidden="true">→</span>
             </a>
             <a class="btn btnGhost" href="https://www.covenorte.es" target="_blank" rel="noopener">
               Ver COVENORTE.es
             </a>
-            <a class="btn btnGhost" href="tel:+34620925720">
-              Llamar / WhatsApp
+            <a class="btn btnWhats"
+               href="https://wa.me/34620925720?text=Hola%20Fran%2C%20soy%20%5BNombre%20y%20negocio%5D.%20Quiero%20una%20recomendaci%C3%B3n%20para%20mejorar%20la%20gesti%C3%B3n%20de%20mi%20local.%20He%20visto%20la%20soluci%C3%B3n%20integral%20de%20COVENORTE."
+               target="_blank" rel="noopener">
+              WhatsApp directo
             </a>
           </div>
 
-          <p style="margin: 14px 0 0; color: var(--muted2); font-weight: 600; font-size: 13px;">
+          <p style="margin: 14px 0 0; color: var(--muted2); font-weight: 750; font-size: 13px;">
             💡 Llevamos ayudando a negocios de hostelería a mejorar su gestión desde 1998, con soluciones adaptadas a cada local.
           </p>
         </div>
@@ -417,7 +507,7 @@
         <h3>¿Quieres saber qué solución encaja mejor en tu negocio?</h3>
         <p>Rellena el formulario y recibe una recomendación personalizada.</p>
       </div>
-      <a class="btn btnPrimary" href="https://forms.gle/YRed4EgansdH7dgt8" target="_blank" rel="noopener">
+      <a class="btn btnPrimary" href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">
         Empezar ahora (1 minuto) →
       </a>
     </div>
@@ -433,7 +523,7 @@
         </div>
       </div>
       <div class="footerLinks">
-        <a href="https://forms.gle/rhzpnjK9eLbWvmug6" target="_blank" rel="noopener">Formulario</a>
+        <a href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">Formulario</a>
         <a href="mailto:francovenorte@gmail.com">Email</a>
         <a href="tel:+34620925720">Llamar</a>
         <a href="https://www.covenorte.es" target="_blank" rel="noopener">Web</a>
