@@ -15,23 +15,35 @@
     :root{
       --blue:#0B66C3;
       --blue2:#2C85E6;
+      --red:#E53935;
+
       --ink:#0f172a;
       --muted:#475569;
-      --bg:#F6F8FC;
+
+      /* fondo rojito claro + neutro */
+      --bg0:#FFF3F3;   /* rojito claro */
+      --bg1:#F6F8FC;   /* neutro */
       --card:#ffffff;
+
       --stroke:rgba(15,23,42,.10);
-      --shadow:0 18px 40px rgba(15,23,42,.10);
+      --shadow: 0 18px 40px rgba(15,23,42,.10);
+
       --radius:18px;
       --radius2:26px;
       --max:1020px;
     }
 
     *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
-      font-family:"Montserrat",system-ui;
-      background:var(--bg);
+      font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       color:var(--ink);
+      background:
+        radial-gradient(900px 520px at 14% 0%, rgba(229,57,53,.14), transparent 60%),
+        radial-gradient(820px 520px at 88% 10%, rgba(11,102,195,.10), transparent 62%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      line-height:1.55;
     }
     a{ color:inherit; text-decoration:none; }
 
@@ -41,191 +53,346 @@
       padding:20px 16px 70px;
     }
 
+    /* CONTENEDOR PRINCIPAL */
     .hero{
+      position:relative;
       background:var(--card);
       border:1px solid var(--stroke);
       border-radius:var(--radius2);
       box-shadow:var(--shadow);
-      padding:26px 22px 30px;
+      overflow:hidden;
+    }
+
+    /* Watermarks: visibles pero elegantes */
+    .hero::before{
+      content:"";
+      position:absolute;
+      top:-40px; right:-40px;
+      width:min(640px, 80vw);
+      height:min(420px, 60vw);
+      background:url("logo-covenorte.png") no-repeat top right/contain;
+      opacity:.10;
+      transform:rotate(-6deg);
+      pointer-events:none;
+      filter:saturate(1.05);
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      bottom:-70px; left:-70px;
+      width:min(520px, 75vw);
+      height:min(360px, 55vw);
+      background:url("logo-covenorte.png") no-repeat bottom left/contain;
+      opacity:.06;
+      transform:rotate(8deg);
+      pointer-events:none;
+      filter:saturate(1.05);
+    }
+    .wmCenter{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:0;
+    }
+    .wmCenter::before{
+      content:"";
+      width:min(860px, 95vw);
+      height:min(420px, 55vw);
+      background:url("logo-covenorte.png") no-repeat center/contain;
+      opacity:.055;
+      transform:rotate(-2deg);
+      filter:saturate(1.05);
+    }
+
+    /* BANDA SUPERIOR (logo protagonista) */
+    .logoBand{
+      position:relative;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:18px;
+      background:linear-gradient(135deg, rgba(11,102,195,.08), rgba(229,57,53,.08));
+      border-bottom:1px solid var(--stroke);
+    }
+
+    .logoPlate{
+      background:#fff;
+      padding:14px 18px;
+      border-radius:22px;
+      border:1px solid var(--stroke);
+      box-shadow:0 14px 30px rgba(15,23,42,.10);
+    }
+
+    .logo{
+      height:120px;
+      width:auto;
+      display:block;
+    }
+
+    @media (max-width:520px){
+      .logo{ height:92px; }
+      .logoBand{ justify-content:center; }
+    }
+
+    .badge{
+      background:rgba(255,255,255,.92);
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:800;
+      color:var(--muted);
+      border:1px solid var(--stroke);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+    .dot{
+      width:9px; height:9px;
+      border-radius:50%;
+      background:var(--red);
+      box-shadow:0 0 0 6px rgba(229,57,53,.12);
+    }
+
+    /* CONTENIDO */
+    .content{
+      position:relative;
+      z-index:2;
+      padding:22px;
       text-align:center;
     }
 
-    /* PÍLDORA */
-    .pill{
+    .pillLine{
       display:inline-block;
       padding:8px 14px;
       border-radius:999px;
       background:rgba(11,102,195,.06);
       border:1px solid rgba(11,102,195,.20);
       color:var(--blue);
-      font-weight:800;
+      font-weight:900;
       font-size:12px;
       margin-bottom:14px;
+      white-space:nowrap;
+      max-width:100%;
     }
 
-    /* TÍTULO PRINCIPAL - UNA SOLA LÍNEA */
+    /* TÍTULO: en una línea en pantallas normales */
     h1{
-      font-size:clamp(22px, 2.8vw, 38px);
+      font-size:clamp(22px, 2.85vw, 40px);
       margin:10px 0 8px;
       text-align:center;
-      white-space:nowrap;       /* fuerza una línea */
+      white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
 
-    /* SLOGAN */
     .slogan{
       font-weight:900;
       font-size:17px;
-      margin-top:6px;
+      margin:6px 0 0;
     }
     .slogan span{ color:var(--blue); }
 
-    /* SUBTEXTO - UNA SOLA LÍNEA */
+    /* Frase centrada y en una línea en pantallas normales */
     .sub{
       font-size:clamp(12px, 1.25vw, 14px);
       color:var(--muted);
-      font-weight:600;
-      margin:6px auto 0;
-      white-space:nowrap;       /* fuerza una línea */
+      font-weight:650;
+      margin:8px auto 0;
+      white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
-      max-width:100%;
       text-align:center;
+      max-width:100%;
     }
 
-    /* BOTONES */
+    /* CTA */
     .cta{
       margin:22px auto 10px;
       display:grid;
       grid-template-columns:1.5fr 1fr 1fr;
       gap:10px;
-      max-width:860px;
+      max-width:900px;
     }
-    @media(max-width:900px){
+    @media (max-width:900px){
       .cta{ grid-template-columns:1fr; }
-      h1, .sub{ white-space:normal; } /* en móviles muy pequeños permitimos salto */
+      /* En móviles muy pequeños priorizamos legibilidad */
+      h1, .sub{ white-space:normal; overflow:visible; text-overflow:clip; }
     }
 
     .btn{
-      padding:14px;
+      padding:14px 14px;
       border-radius:14px;
       font-weight:900;
       border:1px solid var(--stroke);
       background:#fff;
       cursor:pointer;
       text-align:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:50px;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      box-shadow:0 12px 22px rgba(15,23,42,.08);
     }
 
     .btnPrimary{
       background:linear-gradient(135deg,var(--blue),var(--blue2));
       color:#fff;
+      border-color:rgba(11,102,195,.25);
+      box-shadow:0 14px 30px rgba(11,102,195,.20);
     }
 
     .btnWhats{
       background:linear-gradient(135deg,#22c55e,#16a34a);
       color:#fff;
+      border-color:rgba(34,197,94,.25);
+      box-shadow:0 14px 30px rgba(34,197,94,.18);
     }
 
     .btnOutline{
-      background:rgba(11,102,195,.06);
-      color:var(--blue);
+      background:rgba(229,57,53,.06);
+      color:var(--red);
+      border-color:rgba(229,57,53,.22);
     }
 
     .micro{
       margin-top:8px;
       font-size:12px;
       color:var(--muted);
-      font-weight:600;
+      font-weight:650;
     }
 
-    /* CONTACTO */
+    /* CONTACTO centrado */
     .contact{
       margin-top:22px;
       padding:16px;
       border:1px dashed rgba(15,23,42,.20);
       border-radius:var(--radius);
-      background:#f8fafc;
+      background:#fff;
       text-align:center;
     }
-
-    .contact b{ font-size:13px; }
+    .contact b{ font-size:13px; display:block; }
     .contact p{
       margin:6px 0 10px;
       font-size:13px;
       color:var(--muted);
+      font-weight:650;
     }
 
-    .contact a{
-      display:inline-block;
-      margin:4px;
+    .contactPills{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .pill{
       padding:10px 14px;
       border-radius:999px;
       border:1px solid var(--stroke);
       background:#fff;
-      font-weight:800;
+      font-weight:900;
       font-size:13px;
     }
 
     footer{
       margin-top:22px;
-      padding-top:14px;
-      border-top:1px solid var(--stroke);
-      font-size:13px;
+      padding:14px 22px 18px;
+      border-top:1px solid rgba(15,23,42,.10);
       color:var(--muted);
+      font-weight:650;
+      font-size:13px;
       display:flex;
       justify-content:space-between;
       flex-wrap:wrap;
       gap:10px;
+      position:relative;
+      z-index:2;
+    }
+    .footerLinks a{
+      margin-right:8px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--stroke);
+      background:#fff;
+      font-weight:900;
+      color:var(--ink);
     }
   </style>
 </head>
 
 <body>
-<div class="wrap">
-  <main class="hero">
+  <div class="wrap">
+    <main class="hero">
+      <div class="wmCenter" aria-hidden="true"></div>
 
-    <div class="pill">🔷 Solución integral: software + hardware + servicios</div>
-
-    <h1>Mejora el control y el servicio de tu negocio con COVENORTE</h1>
-
-    <div class="slogan"><span>Un solo proveedor.</span> Todo bajo control.</div>
-
-    <div class="sub">
-      Nos encargamos de la instalación, la formación y el soporte post-venta para que tu negocio funcione sin complicaciones.
-    </div>
-
-    <div class="cta">
-      <a class="btn btnPrimary" href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank">
-        🚀 Recibir recomendación personalizada (1 minuto)
-      </a>
-      <a class="btn btnWhats" href="https://wa.me/34620925720" target="_blank">
-        💬 Hablar ahora por WhatsApp
-      </a>
-      <a class="btn btnOutline" href="mailto:francovenorte@gmail.com">
-        📧 Enviar email
-      </a>
-    </div>
-
-    <div class="micro">Sin compromiso · Respuesta rápida · Servicio local</div>
-
-    <div class="contact">
-      <b>Fran Serrano · Director Comercial</b>
-      <p>Te atendemos directamente, sin centralitas ni intermediarios.</p>
-      <a href="tel:+34620925720">📲 620 92 57 20</a>
-      <a href="tel:+34944643066">☎️ 94 464 30 66</a>
-      <a href="mailto:francovenorte@gmail.com">📧 francovenorte@gmail.com</a>
-    </div>
-
-    <footer>
-      <div><strong>COVENORTE SA</strong> · Getxo (Bizkaia) · Referentes del sector desde 1998</div>
-      <div>
-        <a href="https://www.covenorte.es">Web</a> ·
-        <a href="https://forms.gle/1Fx88Wdrpts8QX8B8">Formulario</a>
+      <div class="logoBand">
+        <div class="logoPlate" title="COVENORTE">
+          <img src="logo-covenorte.png" alt="COVENORTE" class="logo">
+        </div>
+        <div class="badge"><span class="dot" aria-hidden="true"></span> Getxo (Bizkaia) · Bizkaia y Cantabria</div>
       </div>
-    </footer>
 
-  </main>
-</div>
+      <div class="content">
+        <div class="pillLine">🔷 Solución integral: software + hardware + servicios</div>
+
+        <h1>Mejora el control y el servicio de tu negocio con COVENORTE</h1>
+
+        <div class="slogan"><span>Un solo proveedor.</span> Todo bajo control.</div>
+
+        <div class="sub">
+          Nos encargamos de la instalación, la formación y el soporte post-venta para que tu negocio funcione sin complicaciones.
+        </div>
+
+        <div class="cta">
+          <a class="btn btnPrimary" href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">
+            🚀 Recibir recomendación personalizada (1 minuto)
+          </a>
+
+          <!-- WhatsApp con mensaje pre-escrito -->
+          <a class="btn btnWhats"
+             href="https://wa.me/34620925720?text=Hola%20Fran%2C%0Asoy%20%5BNombre%5D%20de%20%5BNombre%20del%20negocio%5D.%0A%0AHe%20visto%20la%20soluci%C3%B3n%20integral%20de%20COVENORTE%20y%20me%20gustar%C3%ADa%20recibir%20una%20recomendaci%C3%B3n%20para%20mejorar%20el%20control%20y%20el%20servicio%20de%20mi%20negocio."
+             target="_blank" rel="noopener">
+            💬 Hablar ahora por WhatsApp
+          </a>
+
+          <a class="btn btnOutline" href="mailto:francovenorte@gmail.com" rel="noopener">
+            📧 Enviar email
+          </a>
+        </div>
+
+        <div class="micro">Sin compromiso · Respuesta rápida · Servicio local</div>
+
+        <div class="contact">
+          <b>Fran Serrano · Director Comercial</b>
+          <p>Te atendemos directamente, sin centralitas ni intermediarios.</p>
+
+          <div class="contactPills">
+            <a class="pill" href="tel:+34620925720">📲 620 92 57 20</a>
+            <a class="pill" href="tel:+34944643066">☎️ 94 464 30 66</a>
+            <a class="pill" href="mailto:francovenorte@gmail.com">📧 francovenorte@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div><strong>COVENORTE SA</strong> · Getxo (Bizkaia) · Referentes del sector desde 1998</div>
+        <div class="footerLinks">
+          <a href="https://www.covenorte.es" target="_blank" rel="noopener">Web</a>
+          <a href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">Formulario</a>
+          <a href="mailto:francovenorte@gmail.com">Email</a>
+        </div>
+      </footer>
+    </main>
+  </div>
 </body>
 </html>
