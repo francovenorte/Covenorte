@@ -13,9 +13,10 @@
 
   <style>
     :root{
-      --blue:#0B66C3;       /* azul marca (aprox) */
+      --blue:#0B66C3;
       --blue2:#2C85E6;
-      --red:#E53935;        /* rojo marca (aprox) */
+      --red:#E53935;
+
       --ink:#0f172a;
       --muted:#475569;
 
@@ -44,20 +45,19 @@
     }
     a{ color: inherit; text-decoration: none; }
 
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 22px 16px 70px; }
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 20px 16px 70px; }
 
-    /* --- Main container with watermark background --- */
+    /* Main container with watermark */
     .hero{
       position: relative;
       background: var(--card);
       border: 1px solid var(--stroke);
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
-      padding: 22px;
       overflow: hidden;
     }
 
-    /* Watermark logo (very soft) */
+    /* watermark logo (soft) */
     .hero::before{
       content:"";
       position:absolute;
@@ -68,83 +68,70 @@
       background-repeat: no-repeat;
       background-size: contain;
       background-position: top right;
-      opacity: .06;
+      opacity: .055;
       transform: rotate(-6deg);
       pointer-events:none;
-      filter: saturate(1.1);
+      filter: saturate(1.05);
     }
-
-    /* Secondary subtle watermark bottom-left */
     .hero::after{
       content:"";
       position:absolute;
-      inset: auto auto -60px -60px;
+      inset: auto auto -70px -70px;
       width: min(520px, 75vw);
       height: min(360px, 55vw);
       background-image: url("logo-covenorte.png");
       background-repeat: no-repeat;
       background-size: contain;
       background-position: bottom left;
-      opacity: .035;
+      opacity: .03;
       transform: rotate(8deg);
       pointer-events:none;
-      filter: saturate(1.1);
+      filter: saturate(1.05);
     }
 
-    /* Header */
-    header{
+    /* LOGO BAND (makes logo dominant + solves white background) */
+    .logoBand{
       position: relative;
       z-index: 1;
       display:flex;
+      align-items:center;
       justify-content:space-between;
-      align-items:center;
       gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
+      padding: 18px 18px;
+      background: linear-gradient(135deg, rgba(11,102,195,.08), rgba(229,57,53,.06));
+      border-bottom: 1px solid rgba(15,23,42,.10);
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    /* Logo: bigger + white background support */
     .logoPlate{
       display:flex;
       align-items:center;
       justify-content:center;
-      padding: 10px 14px;
-      border-radius: 18px;
-      background: #fff;                     /* so white logo has contrast */
+      padding: 14px 18px;
+      border-radius: 22px;
+      background: #fff; /* contrast for white logo */
       border: 1px solid rgba(15,23,42,.10);
-      box-shadow: 0 10px 24px rgba(15,23,42,.08);
+      box-shadow: 0 14px 30px rgba(15,23,42,.10);
     }
 
+    /* MUCH bigger logo */
     .logo{
-      height: 74px;  /* MÁS GRANDE */
+      height: 110px; /* 🔥 más destacado */
       width: auto;
       display:block;
     }
-
     @media (max-width: 520px){
-      .logo{ height: 64px; }
+      .logo{ height: 88px; }
+      .logoBand{ justify-content:center; text-align:center; }
     }
 
-    .tagline{
+    .bandRight{
       display:flex;
       flex-direction:column;
-      gap: 2px;
+      gap: 6px;
+      align-items:flex-end;
     }
-    .tagline strong{
-      font-size: 14px;
-      letter-spacing: .2px;
-    }
-    .tagline span{
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 600;
+    @media (max-width: 520px){
+      .bandRight{ display:none; } /* keep clean on mobile */
     }
 
     .badge{
@@ -153,70 +140,84 @@
       gap: 8px;
       padding: 10px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.88);
+      background: rgba(255,255,255,.90);
       border: 1px solid var(--stroke);
-      box-shadow: 0 10px 25px rgba(15,23,42,.06);
       color: var(--muted);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 13px;
       white-space: nowrap;
     }
     .dot{
-      width: 9px;
-      height: 9px;
-      border-radius: 999px;
+      width: 9px; height: 9px; border-radius: 999px;
       background: var(--blue);
       box-shadow: 0 0 0 6px rgba(11,102,195,.12);
     }
 
-    /* Small one-line label */
-    .pillLine{
+    .mini{
+      font-weight: 700;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:right;
+    }
+
+    /* Inner content padding */
+    .content{
       position: relative;
       z-index: 1;
+      padding: 18px 22px 22px;
+    }
+
+    /* One-line pill */
+    .pillLine{
       display:inline-flex;
       align-items:center;
+      justify-content:center;
       gap: 8px;
-      padding: 7px 10px;
+      padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid rgba(11,102,195,.18);
-      background: rgba(11,102,195,.05);
+      background: rgba(11,102,195,.06);
       color: rgba(11,102,195,.95);
-      font-weight: 800;
-      font-size: 12px;       /* más pequeño */
+      font-weight: 900;
+      font-size: 12px;
       letter-spacing: .2px;
-      white-space: nowrap;   /* en una línea */
+      white-space: nowrap; /* single line */
       max-width: 100%;
     }
 
-    /* Main title */
+    /* Title: force one line by using responsive clamp + nowrap */
     h1{
-      position: relative;
-      z-index: 1;
-      margin: 10px 0 10px;
-      font-size: clamp(24px, 3vw, 38px);
+      margin: 12px 0 10px;
+      font-size: clamp(18px, 2.55vw, 34px);
       line-height: 1.12;
       letter-spacing: -0.4px;
+      white-space: nowrap; /* one line */
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+    /* If you prefer never to ellipsis, remove overflow+ellipsis; it will wrap on very small screens */
 
-    /* New slogan (single interlocutor) */
+    /* SLOGAN replacing "con COVENORTE..." */
     .slogan{
-      position: relative;
-      z-index: 1;
       margin: 0;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 15px;
-      max-width: 78ch;
+      font-weight: 800;
+      color: var(--ink);
+      font-size: 16px;
     }
     .slogan strong{
-      color: var(--ink);
+      color: var(--blue);
       font-weight: 900;
     }
+    .sloganSub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 14px;
+      max-width: 78ch;
+    }
 
-    /* Highlights (simple) */
+    /* Highlights */
     .highlights{
-      position: relative;
-      z-index: 1;
       margin: 16px 0 0;
       display:grid;
       gap: 10px;
@@ -224,6 +225,7 @@
     }
     @media (max-width: 720px){
       .highlights{ grid-template-columns: 1fr; }
+      h1{ white-space: normal; } /* better on very small screens */
     }
 
     .hl{
@@ -238,12 +240,8 @@
     .hl b{ display:block; font-size: 13px; }
     .hl span{ display:block; color: var(--muted); font-weight: 600; font-size: 13px; margin-top: 2px; }
     .emoji{
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      width: 34px; height: 34px; border-radius: 12px;
+      display:flex; align-items:center; justify-content:center;
       background: white;
       border: 1px solid rgba(15,23,42,.08);
       box-shadow: 0 10px 22px rgba(15,23,42,.06);
@@ -253,8 +251,6 @@
 
     /* CTA buttons */
     .cta{
-      position: relative;
-      z-index: 1;
       margin-top: 18px;
       display:grid;
       gap: 10px;
@@ -268,7 +264,7 @@
     .btn{
       display:inline-flex;
       align-items:center;
-      justify-content:center; /* centered text */
+      justify-content:center; /* centered */
       gap: 10px;
       padding: 12px 14px;
       border-radius: 14px;
@@ -289,7 +285,6 @@
       color: #fff;
       box-shadow: 0 14px 30px rgba(11,102,195,.20);
     }
-    .btnPrimary:hover{ box-shadow: 0 18px 38px rgba(11,102,195,.24); }
 
     .btnWhats{
       background: linear-gradient(135deg, #22c55e, #16a34a);
@@ -304,41 +299,32 @@
       background: rgba(11,102,195,.06);
     }
 
-    /* Contact strip */
+    /* Contact box centered */
     .contactStrip{
-      position: relative;
-      z-index: 1;
       margin-top: 16px;
       border: 1px dashed rgba(15,23,42,.20);
       border-radius: var(--radius);
-      padding: 12px;
+      padding: 14px 12px;
       background: rgba(246,248,252,.72);
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
+      text-align: center; /* centered content */
     }
-
-    .contactStrip .left{
-      min-width: 240px;
-    }
-    .contactStrip .left b{
+    .contactStrip b{
       display:block;
       font-size: 13px;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
-    .contactStrip .left span{
+    .contactStrip .desc{
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 650;
       font-size: 13px;
+      margin-bottom: 10px;
     }
 
     .contactPills{
       display:flex;
       gap: 8px;
       flex-wrap: wrap;
-      justify-content: flex-end;
+      justify-content: center; /* centered pills */
     }
 
     .pill{
@@ -355,8 +341,6 @@
       max-width: 100%;
       text-align:center;
     }
-
-    /* Prevent email overflow */
     .pillText{
       display:inline-block;
       max-width: min(360px, 70vw);
@@ -366,10 +350,8 @@
       color: var(--muted);
     }
 
-    /* Minimal 3 cards */
+    /* Minimal cards */
     .section{
-      position: relative;
-      z-index: 1;
       margin-top: 18px;
       display:grid;
       gap: 12px;
@@ -385,23 +367,13 @@
       border-radius: var(--radius);
       box-shadow: 0 10px 24px rgba(15,23,42,.06);
       padding: 16px;
+      text-align: center;
     }
-    .card h2{
-      margin:0 0 6px;
-      font-size: 15px;
-      letter-spacing: -0.2px;
-    }
-    .card p{
-      margin:0;
-      color: var(--muted);
-      font-weight: 600;
-      font-size: 14px;
-    }
+    .card h2{ margin:0 0 6px; font-size: 15px; letter-spacing: -0.2px; }
+    .card p{ margin:0; color: var(--muted); font-weight: 600; font-size: 14px; }
 
-    /* Steps (very simple) */
+    /* Steps */
     .steps{
-      position: relative;
-      z-index: 1;
       margin-top: 12px;
       display:grid;
       gap: 10px;
@@ -416,13 +388,12 @@
       border: 1px solid var(--stroke);
       border-radius: var(--radius);
       padding: 14px;
+      text-align: center;
     }
     .step b{ display:block; font-size: 14px; margin-bottom: 4px; }
     .step span{ display:block; color: var(--muted); font-weight: 600; font-size: 14px; }
 
     footer{
-      position: relative;
-      z-index: 1;
       margin-top: 18px;
       padding-top: 14px;
       border-top: 1px solid rgba(15,23,42,.10);
@@ -433,13 +404,14 @@
       flex-wrap: wrap;
       gap: 10px;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
     }
 
     .footerLinks{
       display:flex;
       gap: 8px;
       flex-wrap: wrap;
+      justify-content:center;
     }
     .footerLinks a{
       padding: 9px 10px;
@@ -456,141 +428,109 @@
   <div class="wrap">
     <main class="hero">
 
-      <header>
-        <div class="brand">
-          <div class="logoPlate" title="COVENORTE">
-            <!-- Sube tu logo al repo como: logo-covenorte.png -->
-            <img class="logo" src="logo-covenorte.png" alt="COVENORTE" />
-          </div>
-          <div class="tagline">
-            <strong>Soluciones para Hostelería</strong>
-            <span>Desde 1998 · Servicio local y soporte cercano</span>
-          </div>
+      <!-- Logo band: makes brand dominant -->
+      <div class="logoBand">
+        <div class="logoPlate" title="COVENORTE">
+          <img class="logo" src="logo-covenorte.png" alt="COVENORTE" />
         </div>
 
-        <div class="badge">
-          <span class="dot" aria-hidden="true"></span>
-          Getxo (Bizkaia) · Bizkaia y Cantabria
-        </div>
-      </header>
-
-      <div class="pillLine">🔷 Solución integral: software + hardware + servicios</div>
-
-      <h1>Mejora el control y el servicio de tu negocio con un sistema que funciona</h1>
-
-      <p class="slogan">
-        <strong>Un solo proveedor. Cero líos.</strong> Nos encargamos de todo:
-        instalación, formación y soporte post-venta para que tu equipo trabaje rápido y con control.
-      </p>
-
-      <div class="highlights" aria-label="Beneficios rápidos">
-        <div class="hl">
-          <div class="emoji" aria-hidden="true">🍽️</div>
-          <div>
-            <b>Servicio más ágil</b>
-            <span>Comandas y cocina más ordenadas, menos errores.</span>
-          </div>
-        </div>
-        <div class="hl">
-          <div class="emoji" aria-hidden="true">💶</div>
-          <div>
-            <b>Control de caja y ventas</b>
-            <span>Visibilidad real para decidir mejor.</span>
-          </div>
-        </div>
-        <div class="hl">
-          <div class="emoji" aria-hidden="true">📲</div>
-          <div>
-            <b>Módulos a medida</b>
-            <span>PDA, KDS, reservas, carta digital, pago en mesa.</span>
-          </div>
-        </div>
-        <div class="hl">
-          <div class="emoji" aria-hidden="true">🛠️</div>
-          <div>
-            <b>Soporte local</b>
-            <span>Respuesta rápida, sin intermediarios.</span>
-          </div>
+        <div class="bandRight">
+          <div class="badge"><span class="dot" aria-hidden="true"></span> Getxo (Bizkaia) · Bizkaia y Cantabria</div>
+          <div class="mini">Soporte cercano · Respuesta rápida · Desde 1998</div>
         </div>
       </div>
 
-      <!-- CTAs: centrados + emojis + email real -->
-      <div class="cta" aria-label="Acciones principales">
-        <a class="btn btnPrimary" href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">
-          ✅ Rellenar formulario (1 minuto)
-        </a>
+      <div class="content">
+        <div class="pillLine">🔷 Solución integral: software + hardware + servicios</div>
 
-        <a class="btn btnWhats"
-           href="https://wa.me/34620925720?text=Hola%20Fran%2C%20soy%20%5BNombre%20y%20negocio%5D.%20Quiero%20una%20recomendaci%C3%B3n%20para%20mejorar%20la%20gesti%C3%B3n%20de%20mi%20local.%20He%20visto%20la%20soluci%C3%B3n%20integral%20de%20COVENORTE."
-           target="_blank" rel="noopener">
-          💬 WhatsApp directo
-        </a>
+        <h1>Mejora el control y el servicio de tu negocio con un sistema que funciona</h1>
 
-        <!-- EMAIL: mailto para que abra el cliente de correo -->
-        <a class="btn btnOutlineBlue"
-           href="mailto:francovenorte@gmail.com?subject=Solicitud%20de%20informaci%C3%B3n%20-%20Soluci%C3%B3n%20integral%20COVENORTE&body=Hola%20Fran%2C%0D%0A%0D%0ASoy%20%5BNombre%5D%20de%20%5BNegocio%5D%20(%5BLocalidad%5D%2C%20%5BProvincia%5D).%0D%0AQuiero%20informaci%C3%B3n%20sobre%20una%20soluci%C3%B3n%20integral%20(software%20%2B%20hardware%20%2B%20servicios).%0D%0A%0D%0AGracias%2C%0D%0A%5BNombre%5D">
-          📧 Enviar email
-        </a>
-      </div>
+        <p class="slogan"><strong>Un solo interlocutor.</strong> Todo resuelto.</p>
+        <p class="sloganSub">
+          Nos encargamos de la instalación, la formación y el soporte post-venta para que tu negocio vaya fino,
+          sin depender de varios proveedores.
+        </p>
 
-      <!-- Contact strip: limpio + sin desbordes -->
-      <div class="contactStrip" aria-label="Contacto">
-        <div class="left">
+        <div class="highlights" aria-label="Beneficios rápidos">
+          <div class="hl">
+            <div class="emoji" aria-hidden="true">🍽️</div>
+            <div><b>Servicio más ágil</b><span>Comandas y cocina más ordenadas, menos errores.</span></div>
+          </div>
+          <div class="hl">
+            <div class="emoji" aria-hidden="true">💶</div>
+            <div><b>Control de caja y ventas</b><span>Visibilidad real para decidir mejor.</span></div>
+          </div>
+          <div class="hl">
+            <div class="emoji" aria-hidden="true">📲</div>
+            <div><b>Módulos a medida</b><span>PDA, KDS, reservas, carta digital, pago en mesa.</span></div>
+          </div>
+          <div class="hl">
+            <div class="emoji" aria-hidden="true">🛠️</div>
+            <div><b>Soporte local</b><span>Respuesta rápida, sin intermediarios.</span></div>
+          </div>
+        </div>
+
+        <div class="cta" aria-label="Acciones principales">
+          <a class="btn btnPrimary" href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">
+            ✅ Formulario (1 minuto)
+          </a>
+
+          <a class="btn btnWhats"
+             href="https://wa.me/34620925720?text=Hola%20Fran%2C%20soy%20%5BNombre%20y%20negocio%5D.%20Quiero%20una%20recomendaci%C3%B3n%20para%20mejorar%20la%20gesti%C3%B3n%20de%20mi%20local.%20He%20visto%20la%20soluci%C3%B3n%20integral%20de%20COVENORTE."
+             target="_blank" rel="noopener">
+            💬 WhatsApp
+          </a>
+
+          <!-- EMAIL button only says Email -->
+          <a class="btn btnOutlineBlue"
+             href="mailto:francovenorte@gmail.com?subject=Solicitud%20de%20informaci%C3%B3n%20-%20Soluci%C3%B3n%20integral%20COVENORTE&body=Hola%20Fran%2C%0D%0A%0D%0ASoy%20%5BNombre%5D%20de%20%5BNegocio%5D%20(%5BLocalidad%5D%2C%20%5BProvincia%5D).%0D%0AQuiero%20informaci%C3%B3n%20sobre%20una%20soluci%C3%B3n%20integral%20(software%20%2B%20hardware%20%2B%20servicios).%0D%0A%0D%0AGracias%2C%0D%0A%5BNombre%5D">
+            📧 Email
+          </a>
+        </div>
+
+        <div class="contactStrip" aria-label="Contacto">
           <b>Fran Serrano · Director Comercial</b>
-          <span>Elige el canal que prefieras. Te respondemos lo antes posible.</span>
+          <div class="desc">Elige el canal que prefieras. Te respondemos lo antes posible.</div>
+
+          <div class="contactPills">
+            <a class="pill" href="tel:+34620925720">📲 <span class="pillText">620 92 57 20</span></a>
+            <a class="pill" href="tel:+34944643066">☎️ <span class="pillText">94 464 30 66</span></a>
+            <a class="pill" href="mailto:francovenorte@gmail.com">📧 <span class="pillText">francovenorte@gmail.com</span></a>
+          </div>
         </div>
-        <div class="contactPills">
-          <a class="pill" href="tel:+34620925720">📲 <span class="pillText">620 92 57 20</span></a>
-          <a class="pill" href="tel:+34944643066">☎️ <span class="pillText">94 464 30 66</span></a>
-          <a class="pill" href="mailto:francovenorte@gmail.com">📧 <span class="pillText">francovenorte@gmail.com</span></a>
+
+        <section class="section" aria-label="Qué incluye">
+          <div class="card">
+            <h2>🔹 TPV + software</h2>
+            <p>Ventas, caja, empleados y operativa diaria.</p>
+          </div>
+          <div class="card">
+            <h2>🔹 Comandas + cocina</h2>
+            <p>PDA + KDS para ordenar el servicio.</p>
+          </div>
+          <div class="card">
+            <h2>🔹 Servicio completo</h2>
+            <p>Instalación, formación, mantenimiento y post-venta.</p>
+          </div>
+        </section>
+
+        <div class="steps" aria-label="Cómo funciona">
+          <div class="step"><b>1) 📝 Formulario</b><span>1 minuto y listo.</span></div>
+          <div class="step"><b>2) ✅ Recomendación</b><span>WhatsApp o email.</span></div>
+          <div class="step"><b>3) 🚀 Implantación</b><span>Lo dejamos funcionando.</span></div>
         </div>
+
+        <footer>
+          <div><strong>COVENORTE SA</strong> · Getxo (Bizkaia) · Referentes en hostelería desde 1998</div>
+          <div class="footerLinks">
+            <a href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">Formulario</a>
+            <a href="https://www.covenorte.es" target="_blank" rel="noopener">Web</a>
+            <a href="mailto:francovenorte@gmail.com">Email</a>
+            <a href="https://wa.me/34620925720?text=Hola%20Fran%2C%20soy%20%5BNombre%20y%20negocio%5D.%20Quiero%20una%20recomendaci%C3%B3n%20para%20mejorar%20la%20gesti%C3%B3n%20de%20mi%20local.%20He%20visto%20la%20soluci%C3%B3n%20integral%20de%20COVENORTE."
+               target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </footer>
       </div>
-
-      <!-- Minimal cards -->
-      <section class="section" aria-label="Qué incluye">
-        <div class="card">
-          <h2>🔹 TPV + software de gestión</h2>
-          <p>Control de ventas, caja, empleados y operativa diaria.</p>
-        </div>
-        <div class="card">
-          <h2>🔹 Comandas y cocina</h2>
-          <p>PDA + KDS para ordenar servicio y reducir errores.</p>
-        </div>
-        <div class="card">
-          <h2>🔹 Servicio completo COVENORTE</h2>
-          <p>Instalación, formación, mantenimiento y soporte post-venta.</p>
-        </div>
-      </section>
-
-      <!-- Steps -->
-      <div class="steps" aria-label="Cómo funciona">
-        <div class="step">
-          <b>1) 📝 Formulario (1 minuto)</b>
-          <span>Nos das lo esencial y el objetivo de mejora.</span>
-        </div>
-        <div class="step">
-          <b>2) ✅ Recomendación clara</b>
-          <span>Por WhatsApp o email, como prefieras.</span>
-        </div>
-        <div class="step">
-          <b>3) 🚀 Implantación y soporte</b>
-          <span>Lo dejamos funcionando y te acompañamos.</span>
-        </div>
-      </div>
-
-      <footer>
-        <div>
-          <strong>COVENORTE SA</strong> · Getxo (Bizkaia) · Referentes en hostelería desde 1998
-        </div>
-        <div class="footerLinks">
-          <a href="https://forms.gle/1Fx88Wdrpts8QX8B8" target="_blank" rel="noopener">Formulario</a>
-          <a href="https://www.covenorte.es" target="_blank" rel="noopener">Web</a>
-          <a href="mailto:francovenorte@gmail.com">Email</a>
-          <a href="https://wa.me/34620925720?text=Hola%20Fran%2C%20soy%20%5BNombre%20y%20negocio%5D.%20Quiero%20una%20recomendaci%C3%B3n%20para%20mejorar%20la%20gesti%C3%B3n%20de%20mi%20local.%20He%20visto%20la%20soluci%C3%B3n%20integral%20de%20COVENORTE."
-             target="_blank" rel="noopener">WhatsApp</a>
-        </div>
-      </footer>
-
     </main>
   </div>
 </body>
